@@ -1,4 +1,3 @@
-           
     // Write on keyup event of keyword input element
     $("#search").keyup(function(){
         _this = this;

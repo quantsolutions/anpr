@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>ANPR DATA</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
   <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
-
+<div id="popUpDiv" style="display:none;text-align: center ;"><img id='imgdis' src='' height="480" width="640" /> </div>
 <div class="container">
-  <input type="text" id="search" placeholder="Type to search..." />
-  <h2>Hover Rows</h2>
-  <p>The .table-hover class enables a hover state on table rows:</p>            
+  <p>Your community numberplates!!!</p>
+  <input type="text" id="search" placeholder="Type to search on platenumber,date;text-align: center..." />
   <table id='table' class="table table-hover">
     <thead>
       <tr>
@@ -32,18 +33,4 @@
 
 </body>
 </html>
-  <script>
-    // Write on keyup event of keyword input element
-    $("#search").keyup(function(){
-        _this = this;
-        console.log("Yes")
-        // Show only matching TR, hide rest of them
-        $.each($("#table tbody").find("tr"), function() {
-            console.log($(this).text());
-            if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) == -1)
-               $(this).hide();
-            else
-                 $(this).show();                
-        });
-    }); 
-  </script>
+
