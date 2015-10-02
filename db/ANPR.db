@@ -1,0 +1,193 @@
+--
+-- PostgreSQL database dump
+--
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+
+--
+-- Name: anpr; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+CREATE SCHEMA anpr;
+
+
+ALTER SCHEMA anpr OWNER TO postgres;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+SET search_path = anpr, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- Name: numberplates; Type: TABLE; Schema: anpr; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE numberplates (
+    id bigint NOT NULL,
+    numberplate text,
+    jsondata json,
+    time_received timestamp without time zone,
+    camlocation text
+);
+
+
+ALTER TABLE numberplates OWNER TO postgres;
+
+--
+-- Name: numberplates_id_seq; Type: SEQUENCE; Schema: anpr; Owner: postgres
+--
+
+CREATE SEQUENCE numberplates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE numberplates_id_seq OWNER TO postgres;
+
+--
+-- Name: numberplates_id_seq; Type: SEQUENCE OWNED BY; Schema: anpr; Owner: postgres
+--
+
+ALTER SEQUENCE numberplates_id_seq OWNED BY numberplates.id;
+
+
+--
+-- Name: user; Type: TABLE; Schema: anpr; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE "user" (
+    id bigint NOT NULL,
+    username text,
+    password text
+);
+
+
+ALTER TABLE "user" OWNER TO postgres;
+
+--
+-- Name: user_id_seq; Type: SEQUENCE; Schema: anpr; Owner: postgres
+--
+
+CREATE SEQUENCE user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE user_id_seq OWNER TO postgres;
+
+--
+-- Name: user_id_seq; Type: SEQUENCE OWNED BY; Schema: anpr; Owner: postgres
+--
+
+ALTER SEQUENCE user_id_seq OWNED BY "user".id;
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: anpr; Owner: postgres
+--
+
+ALTER TABLE ONLY numberplates ALTER COLUMN id SET DEFAULT nextval('numberplates_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: anpr; Owner: postgres
+--
+
+ALTER TABLE ONLY "user" ALTER COLUMN id SET DEFAULT nextval('user_id_seq'::regclass);
+
+
+--
+-- Data for Name: numberplates; Type: TABLE DATA; Schema: anpr; Owner: postgres
+--
+
+COPY numberplates (id, numberplate, jsondata, time_received, camlocation) FROM stdin;
+\.
+
+
+--
+-- Name: numberplates_id_seq; Type: SEQUENCE SET; Schema: anpr; Owner: postgres
+--
+
+SELECT pg_catalog.setval('numberplates_id_seq', 1, false);
+
+
+--
+-- Data for Name: user; Type: TABLE DATA; Schema: anpr; Owner: postgres
+--
+
+COPY "user" (id, username, password) FROM stdin;
+1	admin	104fe7e2c8c8891e34cde5ae78fdc6e0b8991a8972c86e95d23c31b4d500bde0
+\.
+
+
+--
+-- Name: user_id_seq; Type: SEQUENCE SET; Schema: anpr; Owner: postgres
+--
+
+SELECT pg_catalog.setval('user_id_seq', 1, true);
+
+
+--
+-- Name: numberplates_pkey; Type: CONSTRAINT; Schema: anpr; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY numberplates
+    ADD CONSTRAINT numberplates_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_pkey; Type: CONSTRAINT; Schema: anpr; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "user"
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: user_username_key; Type: CONSTRAINT; Schema: anpr; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY "user"
+    ADD CONSTRAINT user_username_key UNIQUE (username);
+
+
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

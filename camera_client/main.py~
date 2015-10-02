@@ -1,0 +1,40 @@
+"""
+        Standard packadges
+"""
+import subprocess
+import time
+import cv2
+import numpy as np
+"""
+        Own Modules
+"""
+import camera
+UNPROCESSED_FOLDER = 'images_unprocessed'
+SUCCESS_FOLDER = 'image_success'
+
+cam = camera.ipCamera('http://192.168.1.104/video4.mjpg',None,None)
+i=0
+while True:
+    #print("Save file",i)
+    frame = cam.get_frame()
+    cv2.imshow('Test Image',frame)
+    cv2.waitKey(1000)
+    cv2.destroyAllWindows()
+    if cam.prevframe != None:
+        pix_diff = np.sum(cam.currframe.astype("float") - cam.prevframe.astype("float"))** 2
+        pix_diff /= float(cam.currframe.shape[0] * cam.prevframe.shape[1])
+    else:
+        pix_diff = 10**10
+    if pix_diff > 10**6:
+        t0 = time.time()
+        imagename = str(i)+'.jpeg'
+        imagelocation = 'images_unprocessed/'+imagename
+        cv2.imwrite(imagelocation, frame)
+        
+        #p = subprocess.Popen(["python", "adaptive_thresholding.py","-i",imagelocation],stdin=subprocess.PIPE,stdout=subprocess.PIPE)
+        #output = p.communicate()[0]
+        #print (output)
+        print("Time to process: ",time.time()-t0)
+        i+=1
+#python adaptive_thresholding.py -i test_data/2382709.jpg 
+
